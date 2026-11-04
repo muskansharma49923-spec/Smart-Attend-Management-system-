@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="College attendance management system">
+  <title>AttendEase | Attendance Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main id="loginView" class="login-shell">
+    <section class="login-card">
+      <div class="brand-mark">A</div>
+      <p class="eyebrow">CAMPUS MANAGEMENT</p>
+      <h1>Attendance,<br><span>made simple.</span></h1>
+      <p class="muted">Sign in to manage students, daily attendance and reports.</p>
+      <form id="loginForm" class="stack">
+        <label>Username<input name="username" value="admin" autocomplete="username" required></label>
+        <label>Password<input name="password" type="password" placeholder="Enter your password" autocomplete="current-password" required></label>
+        <button class="primary full" type="submit">Sign in <span>→</span></button>
+        <p id="loginError" class="error" role="alert"></p>
+      </form>
+      <p class="login-hint">Default demo login: <b>admin</b> / <b>ChangeMe123!</b></p>
+    </section>
+    <aside class="login-art">
+      <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+      <div class="art-copy"><span class="art-tag">SMARTER CLASSROOMS</span><h2>Every class.<br>Every student.<br><em>Accounted for.</em></h2><p>A simple workspace for keeping your campus on track.</p></div>
+      <div class="art-note"><span class="note-dot"></span> Your campus, in sync</div>
+    </aside>
+  </main>
+
+  <div id="appView" class="app-shell hidden">
+    <aside class="sidebar">
+      <a class="brand" href="#"><span class="brand-mark small">A</span><span>Attend<span class="brand-light">Ease</span></span></a>
+      <p class="nav-caption">WORKSPACE</p>
+      <button class="nav-item active" data-page="dashboard"><span>▦</span> Overview</button>
+      <button class="nav-item" data-page="students"><span>♙</span> Students</button>
+      <button class="nav-item" data-page="attendance"><span>✓</span> Attendance</button>
+      <button class="nav-item" data-page="reports"><span>▤</span> Reports</button>
+      <div class="sidebar-bottom"><div class="admin-avatar">AD</div><div class="admin-info"><b id="sideUsername">Admin</b><small>Administrator</small></div><button id="logoutBtn" class="logout" title="Sign out">↗</button></div>
+    </aside>
+    <main class="main-area">
+      <header class="topbar"><div><p class="eyebrow" id="pageEyebrow">CAMPUS OVERVIEW</p><h1 id="pageTitle">Good morning</h1></div><div class="topbar-right"><span class="today-pill" id="todayLabel"></span><div class="top-avatar">AD</div></div></header>
+      <section id="dashboardPage" class="page">
+        <div class="welcome-banner"><div><span class="art-tag">YOUR DAILY SNAPSHOT</span><h2>Make every day <em>count.</em></h2><p>Here’s what’s happening with attendance today.</p></div><div class="banner-symbol">✳</div></div>
+        <div class="stat-grid">
+          <article class="stat-card"><div class="stat-icon purple">♙</div><p>Total students</p><strong id="totalStudents">0</strong><small>Registered students</small></article>
+          <article class="stat-card"><div class="stat-icon green">✓</div><p>Present today</p><strong id="presentCount">0</strong><small>Marked present</small></article>
+          <article class="stat-card"><div class="stat-icon orange">◷</div><p>Absent today</p><strong id="absentCount">0</strong><small>Marked absent</small></article>
+          <article class="stat-card"><div class="stat-icon blue">＋</div><p>Not marked</p><strong id="unmarkedCount">0</strong><small>Awaiting attendance</small></article>
+        </div>
+        <div class="section-heading"><div><p class="eyebrow">QUICK ACCESS</p><h2>What would you like to do?</h2></div></div>
+        <div class="quick-grid">
+          <button class="quick-card" data-go="attendance"><span class="quick-icon green">✓</span><b>Mark attendance</b><small>Record today's class attendance</small><span class="quick-arrow">↗</span></button>
+          <button class="quick-card" data-go="students"><span class="quick-icon purple">♙</span><b>Manage students</b><small>Add, edit or remove students</small><span class="quick-arrow">↗</span></button>
+          <button class="quick-card" data-go="reports"><span class="quick-icon blue">▤</span><b>View reports</b><small>Check attendance percentages</small><span class="quick-arrow">↗</span></button>
+        </div>
+      </section>
+
+      <section id="studentsPage" class="page hidden">
+        <div class="toolbar"><div><h2>Student directory</h2><p class="muted">Manage your enrolled students.</p></div><button id="addStudentBtn" class="primary">＋ Add student</button></div>
+        <div class="table-card"><div class="table-tools"><input id="studentSearch" class="search-input" placeholder="⌕  Search by name, roll no. or course"><span id="studentTotal" class="muted small-text"></span></div><div class="table-wrap"><table><thead><tr><th>ROLL NO.</th><th>STUDENT</th><th>COURSE</th><th>SEMESTER</th><th>ATTENDANCE</th><th></th></tr></thead><tbody id="studentsBody"></tbody></table></div></div>
+      </section>
+
+      <section id="attendancePage" class="page hidden">
+        <div class="toolbar"><div><h2>Daily attendance</h2><p class="muted">Select a date and record each student's status.</p></div><div class="toolbar-actions"><input type="date" id="attendanceDate" class="date-input"><button id="saveAttendanceBtn" class="primary">Save attendance</button></div></div>
+        <div class="attendance-summary"><span><i class="dot present-dot"></i> Present <b id="attPresent">0</b></span><span><i class="dot absent-dot"></i> Absent <b id="attAbsent">0</b></span><span><i class="dot late-dot"></i> Late <b id="attLate">0</b></span><span><i class="dot unmarked-dot"></i> Unmarked <b id="attUnmarked">0</b></span></div>
+        <div class="table-card"><div class="table-tools"><b>Class register</b><span class="muted small-text">Choose a status for each student</span></div><div class="table-wrap"><table><thead><tr><th>ROLL NO.</th><th>STUDENT</th><th>COURSE</th><th>STATUS</th></tr></thead><tbody id="attendanceBody"></tbody></table></div></div>
+      </section>
+
+      <section id="reportsPage" class="page hidden">
+        <div class="toolbar"><div><h2>Attendance reports</h2><p class="muted">Review student attendance over a date range.</p></div><div class="toolbar-actions"><label class="date-label">From<input type="date" id="reportFrom" class="date-input"></label><label class="date-label">To<input type="date" id="reportTo" class="date-input"></label><button id="runReportBtn" class="primary">Generate</button></div></div>
+        <div class="table-card"><div class="table-tools"><b>Attendance summary</b><button id="exportBtn" class="secondary">↓ Export CSV</button></div><div class="table-wrap"><table><thead><tr><th>ROLL NO.</th><th>STUDENT</th><th>PRESENT</th><th>ABSENT</th><th>LATE</th><th>MARKED</th><th>ATTENDANCE</th></tr></thead><tbody id="reportsBody"></tbody></table></div></div>
+      </section>
+      <div id="toast" class="toast" role="status"></div>
+    </main>
+  </div>
+
+  <dialog id="studentDialog" class="modal">
+    <form id="studentForm" method="dialog">
+      <div class="modal-head"><div><p class="eyebrow">STUDENT DETAILS</p><h2 id="modalTitle">Add student</h2></div><button type="button" class="icon-close" id="closeModal">×</button></div>
+      <input type="hidden" name="id">
+      <div class="form-grid">
+        <label>Roll number *<input name="roll_no" placeholder="e.g. CS-001" required></label>
+        <label>Full name *<input name="name" placeholder="Student name" required></label>
+        <label>Course *<input name="course" placeholder="e.g. BCA" required></label>
+        <label>Semester *<input name="semester" placeholder="e.g. 4th" required></label>
+        <label class="span-two">Email address<input name="email" type="email" placeholder="student@example.com"></label>
+      </div>
+      <p id="studentFormError" class="error"></p>
+      <div class="modal-actions"><button type="button" class="secondary" id="cancelModal">Cancel</button><button class="primary" type="submit">Save student</button></div>
+    </form>
+  </dialog>
+  <script src="/app.js"></script>
+</body>
+</html>
